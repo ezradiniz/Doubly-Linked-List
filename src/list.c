@@ -3,6 +3,7 @@
 #include "list.h"
 
 //static function
+static list_t *__list_add(list_t *this, node_t *no, void *data);
 static void __list_remove(list_t *this, node_t *node);
 
 list_t *list_new() 
@@ -22,40 +23,12 @@ list_t *list_new()
 
 list_t *list_add_head(list_t *this, void *data)
 {
-	node_t *node;;
-
-	node = node_create(data);
-
-	if (node_is_empty(this->head)) {
-		this->tail = node;
-	} else {
-		node->next = this->head;
-		this->head->prev = node;
-	}
-
-	this->head = node;
-	this->length++;
-
-	return this;
+	return __list_add(this, this->head, data);
 }
 
 list_t *list_add_tail(list_t *this, void *data)
-{
-	node_t *node;
-
-	node = node_create(data);
-
-	if (node_is_empty(this->head)) {
-		this->head = node;
-	} else {
-		node->prev = this->tail;
-		this->tail->next = node;
-	}
-
-	this->tail = node;
-	this->length++;
-
-	return this;
+{	
+	return __list_add(this, this->tail, data);
 }
 
 node_t *list_find(list_t *this, void *data, int (*node_compare_data)(void *a, void *b))
@@ -124,6 +97,32 @@ void list_iterator_prev(list_t *this, void (*print)(void *))
 
 	for (node = this->tail; !node_is_empty(node); node = node_prev(node))
 		print(node->data);
+}
+
+static list_t *__list_add(list_t *this, node_t *no, void *data)
+{	
+	node_t *node;
+
+	node = node_create(data);
+
+	if (node_is_empty(this->head)){
+		this->head = node;
+		this->tail = node;
+	} else if (node_compare(this->head, no)) {
+		node->next = this->head;
+		this->head->prev = node;
+		this->head = node;
+	} else if (node_compare(this->tail, no)) {
+		node->prev = this->tail;
+		this->tail->next = node;
+		this->tail = node;
+	}else {
+		// not implemented
+	}
+
+	this->length++;
+
+	return this;
 }
 
 static void __list_remove(list_t *this, node_t *node)

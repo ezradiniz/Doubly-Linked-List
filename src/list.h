@@ -19,6 +19,8 @@ list_t *list_add_tail(list_t *this, void *data);
 
 node_t *list_find(list_t *this, void *data, int (*node_compare_data)(void *a, void *b));
 
+void list_clear(list_t *this);
+
 void list_remove_head(list_t *this);
 void list_remove_tail(list_t *this);
 void list_destroy(list_t *this);

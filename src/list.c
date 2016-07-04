@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 
 #include "list.h"
 
@@ -71,6 +70,14 @@ node_t *list_find(list_t *this, void *data, int (*node_compare_data)(void *a, vo
 	return NULL;
 }
 
+void list_clear(list_t *this)
+{
+	node_t *node;
+
+	for (node = this->head; !node_is_empty(node); node = node_next(node))
+		node_clear(node);
+}
+
 void list_remove_head(list_t *this)
 {	
 	if (!node_is_empty(this->head))
@@ -93,22 +100,18 @@ void list_destroy(list_t *this)
 
 void list_iterator_next(list_t *this, void (*print)(void *))
 {
-	node_t *node = this->head;
+	node_t *node;
 
-	while (!node_is_empty(node)) {
+	for (node = this->head; !node_is_empty(node); node = node_next(node))
 		print(node->data);
-		node = node_next(node);
-	}
 }
 
 void list_iterator_prev(list_t *this, void (*print)(void *))
 {
-	node_t *node = this->tail;
+	node_t *node;
 
-	while (!node_is_empty(node)) {
+	for (node = this->tail; !node_is_empty(node); node = node_prev(node))
 		print(node->data);
-		node = node_prev(node);
-	}
 }
 
 static void __list_remove(list_t *this, node_t *node)

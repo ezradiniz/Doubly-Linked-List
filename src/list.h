@@ -21,6 +21,7 @@ node_t *list_find(list_t *this, void *data, int (*node_compare_data)(void *a, vo
 
 void list_clear(list_t *this);
 
+void list_remove_node(list_t *this, node_t *no);
 void list_remove_head(list_t *this);
 void list_remove_tail(list_t *this);
 void list_destroy(list_t *this);

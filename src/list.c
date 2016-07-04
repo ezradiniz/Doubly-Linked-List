@@ -78,6 +78,18 @@ void list_clear(list_t *this)
 		node_clear(node);
 }
 
+void list_remove_node(list_t *this, node_t *no)
+{
+	node_t *node;
+
+	for (node = this->head; !node_is_empty(node); node = node_next(node)) {
+		if (node_compare(node, no)) {
+			__list_remove(this, node);
+			break;
+		}
+	}
+}
+
 void list_remove_head(list_t *this)
 {	
 	if (!node_is_empty(this->head))

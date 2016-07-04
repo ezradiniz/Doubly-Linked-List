@@ -106,18 +106,19 @@ static list_t *__list_add(list_t *this, node_t *no, void *data)
 	node = node_create(data);
 
 	if (node_is_empty(this->head)){
+		//add node
 		this->head = node;
 		this->tail = node;
 	} else if (node_compare(this->head, no)) {
+		//add node in head
 		node->next = this->head;
 		this->head->prev = node;
 		this->head = node;
-	} else if (node_compare(this->tail, no)) {
+	} else {
+		//add node in tail
 		node->prev = this->tail;
 		this->tail->next = node;
 		this->tail = node;
-	}else {
-		// not implemented
 	}
 
 	this->length++;

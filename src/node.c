@@ -26,6 +26,11 @@ node_t *node_prev(node_t *this)
 	return (node_is_empty(this)) ? NULL : this->prev;
 }
 
+void node_clear(node_t *this)
+{
+	free(this->data);
+}
+
 int node_is_empty(node_t *this)
 {
 	return (this == NULL) ? 1 : 0;

@@ -1,2 +1,5 @@
 # Doubly-Linked-List
-Doubly-Linked List -- implemented in C.
+
+[pt-br]
+	Minha primeira biblioteca feita na linguagem C. A lista duplamente 
+	encadeada, foi desenvolvida apenas para estudos (ESTRUTURA DE DADOS).

@@ -35,7 +35,7 @@ node_t *list_find(list_t *this, void *data, int (*node_compare_data)(void *a, vo
 {
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node_next(node)) {
+	for (node = this->head; !node_is_empty(node); node = node->next) {
 		if (node_compare_data(node->data, data))
 			return node;
 	}
@@ -47,7 +47,7 @@ void list_clear(list_t *this)
 {
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node_next(node))
+	for (node = this->head; !node_is_empty(node); node = node->next)
 		node_clear(node);
 }
 
@@ -55,7 +55,7 @@ void list_remove_node(list_t *this, node_t *no)
 {
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node_next(node)) {
+	for (node = this->head; !node_is_empty(node); node = node->next) {
 		if (node_compare(node, no)) {
 			__list_remove(this, node);
 			break;
@@ -79,8 +79,9 @@ void list_destroy(list_t *this)
 {	
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node_next(node))
+	for (node = this->head; !node_is_empty(node); node = this->head)
 		__list_remove(this, node);
+	free(this);
 }
 
 void list_iterator_next(list_t *this, void (*print)(void *))

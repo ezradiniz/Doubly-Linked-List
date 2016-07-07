@@ -55,7 +55,7 @@ void list_remove_node(list_t *this, node_t *no)
 {
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node->next) {
+	for (node = this->head; !node_is_empty(node); node = node_next(node)) {
 		if (node_compare(node, no)) {
 			__list_remove(this, node);
 			break;

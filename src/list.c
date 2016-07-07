@@ -35,7 +35,7 @@ node_t *list_find(list_t *this, void *data, int (*node_compare_data)(void *a, vo
 {
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node->next) {
+	for (node = this->head; !node_is_empty(node); node = node_next(node)) {
 		if (node_compare_data(node->data, data))
 			return node;
 	}
@@ -47,7 +47,7 @@ void list_clear(list_t *this)
 {
 	node_t *node;
 
-	for (node = this->head; !node_is_empty(node); node = node->next)
+	for (node = this->head; !node_is_empty(node); node = node_next(node))
 		node_clear(node);
 }
 

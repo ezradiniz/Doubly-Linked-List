@@ -26,7 +26,10 @@ void list_remove_head(list_t *this);
 void list_remove_tail(list_t *this);
 void list_destroy(list_t *this);
 
-void list_iterator_next(list_t *this, void (*print)(void *));
-void list_iterator_prev(list_t *this, void (*print)(void *));
+#define LIST_FOR_EACH_NEXT(node, list) \
+	for (node = list->head; !node_is_empty(node); node = node_next(node))
+
+#define LIST_FOR_EACH_PREV(node, list) \
+	for (node = list->tail; !node_is_empty(node); node = node_prev(node))
 
 #endif

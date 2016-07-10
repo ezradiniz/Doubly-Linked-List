@@ -80,9 +80,10 @@ void list_destroy(list_t *this)
 {	
 	node_t *node;
 
-	LIST_FOR_EACH_NEXT(node, this) {
+	LIST_FOR_EACH_HEAD(node, this) {
 		__list_remove(this, node);
 	}
+
 	free(this);
 }
 

@@ -32,4 +32,7 @@ void list_destroy(list_t *this);
 #define LIST_FOR_EACH_PREV(node, list) \
 	for (node = list->tail; !node_is_empty(node); node = node_prev(node))
 
+#define LIST_FOR_EACH_HEAD(node, list) \
+		for (node = list->head; !node_is_empty(node); node = list->head)
+
 #endif
